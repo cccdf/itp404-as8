@@ -1,7 +1,18 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+
+const { ENVIRONMENT, PORT } = process.env;
+const IS_DEVELOPMENT = ENVIRONMENT === "development";
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: IS_DEVELOPMENT
+      ? "http://localhost:3000"
+      : "https://dtang-react-crud.surge.sh"
+  })
+);
 
 const db = {
   posts: [
@@ -103,20 +114,6 @@ app.post("/api/comments", (request, response) => {
       response.status(404).send("post is not in the db");
     }
   }
-
-  // const comment = request.body.body;
-  // const postid = request.body.post;
-  // const key1 = "comment";
-  // const key2 = "id";
-  // const comments = {};
-  // db.posts[postid - 1][key1] = comment;
-  // db.posts[postid - 1][key1][key2] = db.posts[postid - 1].comment.length + 1;
-  // const res = {
-  //   id: db.posts[postid].comment.id,
-  //   post: postid,
-  //   body: comment
-  // };
-  // response.json(db.posts[postid - 1]);
 });
 
 app.get("/api/posts/:id/comments", (request, response) => {
