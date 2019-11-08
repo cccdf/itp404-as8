@@ -160,4 +160,4 @@ app.put("/api/comments/:id", (request, response) => {
   }
 });
 
-app.listen(8000);
+app.listen(PORT || 8000);
