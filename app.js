@@ -31,7 +31,7 @@ const db = {
 };
 
 app.get("/", response => {
-  response.json("welcome");
+  response.send("welcome");
 });
 
 app.get("/api/posts", (request, response) => {
